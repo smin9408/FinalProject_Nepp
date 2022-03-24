@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.example.finalproject_nepp.R
 import com.example.finalproject_nepp.databinding.FragmentMyProfileBinding
 import com.example.finalproject_nepp.datas.BasicResponse
@@ -49,6 +50,8 @@ class MyProfileFragment : BaseFragment() {
                     val br = response.body()!!
 
                     binding.txtNickname.text = br.data.user.nick_name
+
+                    Glide.with(mContext).load(br.data.user.profile_img).into(binding.imgProfile)
 
 
                 }

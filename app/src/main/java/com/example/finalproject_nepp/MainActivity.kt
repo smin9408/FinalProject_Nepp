@@ -18,7 +18,7 @@ class MainActivity : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         setupEvents()
         setValues()
     }
@@ -31,6 +31,7 @@ class MainActivity : BaseActivity() {
         mAdapter = MainViewPagerAdapter(supportFragmentManager)
         binding.mainViewPager.adapter = mAdapter
 
+        binding.mainTabLayout.setupWithViewPager(binding.mainViewPager)
 
 
 //        GET - /user 접근해서, 내 정보 조회.

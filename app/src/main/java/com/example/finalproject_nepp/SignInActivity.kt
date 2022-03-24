@@ -1,5 +1,6 @@
 package com.example.finalproject_nepp
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -21,6 +22,13 @@ class SignInActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+
+        binding.btnSignUp.setOnClickListener {
+
+            val myIntent = Intent(mContext, SignUpActivity::class.java)
+            startActivity(myIntent)
+
+        }
 
         binding.btnLogin.setOnClickListener {
 

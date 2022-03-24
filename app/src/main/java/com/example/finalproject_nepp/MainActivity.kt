@@ -25,20 +25,22 @@ class MainActivity : BaseActivity() {
 
     override fun setValues() {
 
+
+
 //        GET - /user 접근해서, 내 정보 조회.
 //        토큰값이 필요함. => 로그인 성공시 토큰 저장, ContextUtil에서 추출해서 사용.
-        apiList.getRequestMyInfo(ContextUtil.getLoginUserToken(mContext)).enqueue(object :Callback<BasicResponse>{
-            override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
-                if(response.isSuccessful){
-                    val br = response.body()!!
-
-                    binding.txtUserNickname.text = br.data.user.nick_name
-                }
-            }
-
-            override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
-            }
-        })
+//        apiList.getRequestMyInfo(ContextUtil.getLoginUserToken(mContext)).enqueue(object :Callback<BasicResponse>{
+//            override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
+//                if(response.isSuccessful){
+//                    val br = response.body()!!
+//
+//                    binding.txtUserNickname.text = br.data.user.nick_name
+//                }
+//            }
+//
+//            override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+//            }
+//        })
 
     }
 }

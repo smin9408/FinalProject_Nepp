@@ -10,8 +10,8 @@ interface APIList {
 
 //    BASE_URL에 해당하는 서버에서, 어떤 기능들을 사용할건지 명시.
 
-    @POST("/user")
     @FormUrlEncoded
+    @POST("/user")
     fun postRequestLogin(
         @Field("email") email: String,
         @Field("password") pw: String

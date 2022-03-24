@@ -48,6 +48,8 @@ class MyProfileFragment : BaseFragment() {
 
                     val br = response.body()!!
 
+                    binding.txtNickname.text = br.data.user.nick_name
+
 
                 }
             }

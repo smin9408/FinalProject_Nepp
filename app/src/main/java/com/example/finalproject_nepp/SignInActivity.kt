@@ -1,12 +1,9 @@
 package com.example.finalproject_nepp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
-import com.example.finalproject_nepp.api.APIList
-import com.example.finalproject_nepp.api.ServerAPI
 import com.example.finalproject_nepp.databinding.ActivitySignInBinding
-import org.json.JSONObject
+import com.example.finalproject_nepp.datas.BasicResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,8 +26,8 @@ class SignInActivity : BaseActivity() {
             val inputEmail = binding.edtEmail.text.toString()
             val inputPassword = binding.edtPassword.text.toString()
 
-            apiList.postRequestLogin(inputEmail, inputPassword).enqueue(object :Callback<JSONObject>{
-                override fun onResponse(call: Call<JSONObject>, response: Response<JSONObject>) {
+            apiList.postRequestLogin(inputEmail, inputPassword).enqueue(object :Callback<BasicResponse>{
+                override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
 
 
                     if (response.isSuccessful){
@@ -38,7 +35,7 @@ class SignInActivity : BaseActivity() {
                     }
                 }
 
-                override fun onFailure(call: Call<JSONObject>, t: Throwable) {
+                override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
                 }
             })
 

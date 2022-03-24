@@ -1,6 +1,7 @@
 package com.example.finalproject_nepp.api
 
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 class ServerAPI {
 
@@ -17,10 +18,12 @@ class ServerAPI {
         fun getRetrofit(): Retrofit {
 
 //            Retrofit 라이브러리는, 클래스 차원에서 BASE_URL을 설정할 수 있게 도와줌.
+//            Retrofit + Gson 두 개의 라이브러리를 결합하면 => JSON 파싱이 쉬워짐.
 
             if(retrofit == null){
                 retrofit = Retrofit.Builder()
                     .baseUrl(BASE_URL) // 어느 서버를 기반으로 움직일건지 설정.
+                    .addConverterFactory( GsonConverterFactory.create() ) // gson 라이브러리와 결합
                     .build()
             }
 

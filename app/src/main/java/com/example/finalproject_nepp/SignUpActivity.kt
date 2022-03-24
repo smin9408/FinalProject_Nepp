@@ -1,6 +1,5 @@
 package com.example.finalproject_nepp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
@@ -22,6 +21,31 @@ class SignUpActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+
+        binding.btnEmailCheck.setOnClickListener {
+
+            val inputEmail = binding.edtEmail.text.toString()
+
+            apiList.getRequestDuplicatedCheck("EMAIL", inputEmail).enqueue(object : Callback<BasicResponse>{
+                override fun onResponse(
+                    call: Call<BasicResponse>,
+                    response: Response<BasicResponse>
+                ) {
+                    if(response.isSuccessful){
+                        Toast.makeText(mContext, "사용 가능한 이메일 입니다.", Toast.LENGTH_SHORT).show()
+                    }else{
+                        Toast.makeText(mContext, "중복된 이메일 입니다.", Toast.LENGTH_SHORT).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+
+                }
+            })
+
+
+
+        }
 
         binding.btnSignUp.setOnClickListener {
 

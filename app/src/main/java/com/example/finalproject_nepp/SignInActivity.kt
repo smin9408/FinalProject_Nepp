@@ -45,7 +45,7 @@ class SignInActivity : BaseActivity() {
 
                         val br = response.body()!!
 
-                        Toast.makeText(mContext,"${br.data.user.nickname}님, 환영합니다!!",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(mContext,"${br.data.user.nick_name}님, 환영합니다!!",Toast.LENGTH_SHORT).show()
 
 //                        서버가 내려주는 토큰값을 저장.
                         ContextUtil.setLoginUserToken(mContext, br.data.token)

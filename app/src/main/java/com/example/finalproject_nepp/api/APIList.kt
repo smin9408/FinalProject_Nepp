@@ -2,10 +2,7 @@ package com.example.finalproject_nepp.api
 
 import com.example.finalproject_nepp.datas.BasicResponse
 import retrofit2.Call
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
-import retrofit2.http.PUT
+import retrofit2.http.*
 
 interface APIList {
 
@@ -24,6 +21,11 @@ interface APIList {
         @Field("email") email: String,
         @Field("password") pw: String,
         @Field("nick_name") nick: String
+    ): Call<BasicResponse>
+
+    @GET("/user")
+    fun getRequestMyInfo(
+        @Header("X-Http-Token") token: String
     ): Call<BasicResponse>
 
 }

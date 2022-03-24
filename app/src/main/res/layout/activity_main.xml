@@ -8,14 +8,13 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="20dp"
         tools:context=".MainActivity">
 
         <TextView
+            android:id="@+id/txtUserNickname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="파이널 프로젝트"
-            android:textSize="25sp" />
+            android:text="~~님이 로그인 했습니다."/>
 
 
     </LinearLayout>

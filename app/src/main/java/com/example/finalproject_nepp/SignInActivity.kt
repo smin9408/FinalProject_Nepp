@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.finalproject_nepp.databinding.ActivitySignInBinding
 import com.example.finalproject_nepp.datas.BasicResponse
+import com.example.finalproject_nepp.utils.ContextUtil
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,6 +25,7 @@ class SignInActivity : BaseActivity() {
     override fun setupEvents() {
 
         binding.btnSignUp.setOnClickListener {
+
 
             val myIntent = Intent(mContext, SignUpActivity::class.java)
             startActivity(myIntent)
@@ -44,6 +46,16 @@ class SignInActivity : BaseActivity() {
                         val br = response.body()!!
 
                         Toast.makeText(mContext,"${br.data.user.nickname}님, 환영합니다!!",Toast.LENGTH_SHORT).show()
+
+//                        서버가 내려주는 토큰값을 저장.
+                        ContextUtil.setLoginUserToken(mContext, br.data.token)
+
+
+//                        메인화면으로 이동
+                        val myIntent = Intent(mContext, MainActivity::class.java)
+                        startActivity(myIntent)
+
+                        finish()
 
                     }
                 }

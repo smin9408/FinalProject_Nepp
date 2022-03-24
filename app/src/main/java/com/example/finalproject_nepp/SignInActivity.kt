@@ -1,6 +1,7 @@
 package com.example.finalproject_nepp
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.finalproject_nepp.databinding.ActivitySignInBinding
 import com.example.finalproject_nepp.datas.BasicResponse
@@ -31,6 +32,10 @@ class SignInActivity : BaseActivity() {
 
 
                     if (response.isSuccessful){
+
+                        val br = response.body()!!
+
+                        Toast.makeText(mContext,"${br.data.user.nickname}님, 환영합니다!!",Toast.LENGTH_SHORT).show()
 
                     }
                 }

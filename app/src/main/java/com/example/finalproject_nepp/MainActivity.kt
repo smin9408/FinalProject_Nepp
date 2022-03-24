@@ -2,6 +2,7 @@ package com.example.finalproject_nepp
 
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import com.example.finalproject_nepp.adapters.MainViewPagerAdapter
 import com.example.finalproject_nepp.databinding.ActivityMainBinding
 import com.example.finalproject_nepp.datas.BasicResponse
 import com.example.finalproject_nepp.utils.ContextUtil
@@ -12,6 +13,8 @@ import retrofit2.Response
 class MainActivity : BaseActivity() {
 
     lateinit var binding: ActivityMainBinding
+
+    lateinit var mAdapter: MainViewPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +27,9 @@ class MainActivity : BaseActivity() {
     }
 
     override fun setValues() {
+
+        mAdapter = MainViewPagerAdapter(supportFragmentManager)
+        binding.mainViewPager.adapter = mAdapter
 
 
 

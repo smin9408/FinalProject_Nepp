@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.example.finalproject_nepp.ManageMyFriendsActivity
 import com.example.finalproject_nepp.R
 import com.example.finalproject_nepp.SplashActivity
 import com.example.finalproject_nepp.databinding.FragmentMyProfileBinding
@@ -41,6 +42,13 @@ class MyProfileFragment : BaseFragment() {
     }
 
     override fun setupEvents() {
+
+        binding.btnManageMyFriends.setOnClickListener {
+
+            val myIntent = Intent(mContext, ManageMyFriendsActivity::class.java)
+            startActivity(myIntent)
+
+        }
 
         binding.btnLogout.setOnClickListener {
 

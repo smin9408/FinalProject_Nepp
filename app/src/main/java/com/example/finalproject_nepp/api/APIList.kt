@@ -34,4 +34,9 @@ interface APIList {
         @Query("value") value: String
     ): Call<BasicResponse>
 
+    @GET("/user/friend")
+    fun getRequestFriendList(
+        @Header("X-Http-Token") token: String,
+        @Query("type") type: String
+    ): Call<BasicResponse>
 }

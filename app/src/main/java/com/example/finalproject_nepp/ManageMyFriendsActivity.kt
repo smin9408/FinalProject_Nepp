@@ -1,5 +1,6 @@
 package com.example.finalproject_nepp
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import com.example.finalproject_nepp.adapters.MyFriendAdapter
@@ -30,6 +31,13 @@ class ManageMyFriendsActivity : BaseActivity() {
     }
 
     override fun setValues() {
+
+        binding.btnAddFriend.setOnClickListener {
+
+            val myIntent = Intent(mContext, SearchUserActivity::class.java)
+            startActivity(myIntent)
+
+        }
 
         getMyFriendListFromServer()
 

@@ -63,7 +63,7 @@ class MyFriendAdapter(
                 Glide.with(mContext).load(R.drawable.naver_logo).into(imgSocialLoginLogo)
             }
             else -> {
-
+//                그 외의 잘못된 경우
             }
         }
 

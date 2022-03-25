@@ -1,12 +1,12 @@
 package com.example.finalproject_nepp.adapters
 
 import android.content.Context
-import android.service.autofill.UserData
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import com.example.finalproject_nepp.R
+import com.example.finalproject_nepp.datas.UserData
 
 class MyFriendAdapter(
     val mContext: Context,

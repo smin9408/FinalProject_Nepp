@@ -5,6 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.ImageView
+import android.widget.TextView
+import com.bumptech.glide.Glide
 import com.example.finalproject_nepp.R
 import com.example.finalproject_nepp.datas.UserData
 
@@ -22,6 +25,17 @@ class MyFriendAdapter(
         }
 
         val row = tempRow!!
+
+        val data = mList[position]
+
+        val imgProfile = row.findViewById<ImageView>(R.id.imgProfile)
+        val txtNickname = row.findViewById<TextView>(R.id.txtNickname)
+        val txtEmail = row.findViewById<TextView>(R.id.txtEmail)
+
+        Glide.with(mContext).load(data.profile_img).into(imgProfile)
+        txtNickname.text = data.nick_name
+        txtEmail.text = data.email
+
         return row
     }
 

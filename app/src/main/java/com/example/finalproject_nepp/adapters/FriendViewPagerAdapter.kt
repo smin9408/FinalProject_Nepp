@@ -22,8 +22,8 @@ class FriendViewPagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
     override fun getPageTitle(position: Int): CharSequence? {
         return when (position) {
-            0 -> "약속 목록"
-            else -> "내 프로필"
+            0 -> "내 친구 목록"
+            else -> "친구 요청 목록"
         }
     }
 }

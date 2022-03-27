@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.finalproject_nepp.R
+import com.example.finalproject_nepp.adapters.MyFriendRecyclerAdapter
 import com.example.finalproject_nepp.databinding.FragmentMyFriendsBinding
 import com.example.finalproject_nepp.datas.BasicResponse
 import com.example.finalproject_nepp.datas.UserData
@@ -18,6 +20,8 @@ class MyFriendsFragment : BaseFragment() {
     lateinit var binding: FragmentMyFriendsBinding
 
     val mMyFriendsList = ArrayList<UserData>()
+
+    lateinit var mFriendAdapter: MyFriendRecyclerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -40,13 +44,17 @@ class MyFriendsFragment : BaseFragment() {
 
     override fun setValues() {
 
+        mFriendAdapter = MyFriendRecyclerAdapter(mContext, mMyFriendsList)
+        binding.myFriendsRecyclerView.adapter = mFriendAdapter
+        binding.myFriendsRecyclerView.layoutManager = LinearLayoutManager(mContext)
+
     }
 
-    fun getMyFriendsFromServer(){
-        apiList.getRequestFriendList("my").enqueue(object : Callback<BasicResponse>{
+    fun getMyFriendsFromServer() {
+        apiList.getRequestFriendList("my").enqueue(object : Callback<BasicResponse> {
             override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
 
-                if(response.isSuccessful){
+                if (response.isSuccessful) {
 
                     val br = response.body()!!
 
@@ -54,6 +62,7 @@ class MyFriendsFragment : BaseFragment() {
 
                     mMyFriendsList.addAll(br.data.friends)
 
+                    mFriendAdapter.notifyDataSetChanged()
                 }
 
             }

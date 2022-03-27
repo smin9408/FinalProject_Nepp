@@ -10,6 +10,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.finalproject_nepp.R
+import com.example.finalproject_nepp.api.APIList
+import com.example.finalproject_nepp.api.ServerAPI
 import com.example.finalproject_nepp.datas.UserData
 
 class SearchedUserRecyclerAdapter(
@@ -25,7 +27,7 @@ class SearchedUserRecyclerAdapter(
         val txtEmail = view.findViewById<TextView>(R.id.txtEmail)
         val btnAddFriend = view.findViewById<Button>(R.id.btnAddFriend)
 
-        //        실 데이터 반영 기능이 있는 함수수
+        //        실 데이터 반영 기능이 있는 함수
         fun bind(data: UserData) {
             txtNickname.text = data.nick_name
             Glide.with(mContext).load(data.profile_img).into(imgProfile)
@@ -54,6 +56,15 @@ class SearchedUserRecyclerAdapter(
 //                그 외의 잘못된 경우
                 }
             }
+
+//            친구 추가 버튼이 눌리면 할 일 => 친구 추가 요청 API 호출.
+//            어댑터에서 => API를 호출? => 레트로핏 객체 직접 생성해서 로출.
+
+            val retrofit = ServerAPI.getRetrofit()
+            val apiList = retrofit.create(APIList::class.java)
+
+//            apiList
+
         }
     }
 

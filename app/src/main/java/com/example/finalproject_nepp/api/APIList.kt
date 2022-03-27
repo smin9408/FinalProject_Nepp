@@ -45,4 +45,7 @@ interface APIList {
         @Header("X-Http-Token") token: String,
         @Query("nickname") nickname: String
     ): Call<BasicResponse>
+
+    @POST("/user/friend")
+    fun add()
 }

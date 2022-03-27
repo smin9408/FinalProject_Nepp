@@ -11,10 +11,10 @@ import com.bumptech.glide.Glide
 import com.example.finalproject_nepp.R
 import com.example.finalproject_nepp.datas.UserData
 
-class MyFriendRecyclerAdapter(
+class RequestUserRecyclerAdapter(
     val mContext: Context,
     val mList: List<UserData>
-) : RecyclerView.Adapter<MyFriendRecyclerAdapter.MyViewHolder>() {
+) : RecyclerView.Adapter<RequestUserRecyclerAdapter.MyViewHolder>() {
 
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
@@ -63,7 +63,7 @@ class MyFriendRecyclerAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view =
-            LayoutInflater.from(mContext).inflate(R.layout.my_friend_list_item, parent, false)
+            LayoutInflater.from(mContext).inflate(R.layout.requested_user_list_item, parent, false)
         return MyViewHolder(view)
     }
 

@@ -3,6 +3,7 @@ package com.example.finalproject_nepp
 import android.content.Intent
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import com.example.finalproject_nepp.adapters.FriendViewPagerAdapter
 import com.example.finalproject_nepp.adapters.MyFriendAdapter
 import com.example.finalproject_nepp.databinding.ActivityManageMyFriendsBinding
 import com.example.finalproject_nepp.datas.BasicResponse
@@ -15,6 +16,8 @@ import retrofit2.Response
 class ManageMyFriendsActivity : BaseActivity() {
 
     lateinit var binding: ActivityManageMyFriendsBinding
+
+    lateinit var mAdapter: FriendViewPagerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +38,11 @@ class ManageMyFriendsActivity : BaseActivity() {
     }
 
     override fun setValues() {
+
+        mAdapter = FriendViewPagerAdapter(supportFragmentManager)
+        binding.friendViewPager.adapter = mAdapter
+
+        binding.friendsTabLayout.setupWithViewPager(binding.friendViewPager)
 
     }
 

@@ -7,10 +7,17 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.example.finalproject_nepp.R
 import com.example.finalproject_nepp.databinding.FragmentMyFriendsBinding
+import com.example.finalproject_nepp.datas.BasicResponse
+import com.example.finalproject_nepp.datas.UserData
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MyFriendsFragment : BaseFragment() {
 
     lateinit var binding: FragmentMyFriendsBinding
+
+    val mMyFriendsList = ArrayList<UserData>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,5 +39,28 @@ class MyFriendsFragment : BaseFragment() {
     }
 
     override fun setValues() {
+
     }
+
+    fun getMyFriendsFromServer(){
+        apiList.getRequestFriendList("my").enqueue(object : Callback<BasicResponse>{
+            override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
+
+                if(response.isSuccessful){
+
+                    val br = response.body()!!
+
+                    mMyFriendsList.clear()
+
+                    mMyFriendsList.addAll(br.data.friends)
+
+                }
+
+            }
+
+            override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+            }
+        })
+    }
+
 }

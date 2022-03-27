@@ -48,6 +48,8 @@ class MyFriendsFragment : BaseFragment() {
         binding.myFriendsRecyclerView.adapter = mFriendAdapter
         binding.myFriendsRecyclerView.layoutManager = LinearLayoutManager(mContext)
 
+        getMyFriendsFromServer()
+
     }
 
     fun getMyFriendsFromServer() {

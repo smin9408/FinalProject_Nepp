@@ -29,7 +29,7 @@ class SplashActivity : BaseActivity() {
 
         var isMyInfoLoaded = false
 
-        apiList.getRequestMyInfo(ContextUtil.getLoginUserToken(mContext))
+        apiList.getRequestMyInfo()
             .enqueue(object : Callback<BasicResponse> {
                 override fun onResponse(
                     call: Call<BasicResponse>,

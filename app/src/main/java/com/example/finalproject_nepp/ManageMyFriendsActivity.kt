@@ -47,7 +47,7 @@ class ManageMyFriendsActivity : BaseActivity() {
 
     fun getMyFriendListFromServer(){
 
-        apiList.getRequestFriendList(ContextUtil.getLoginUserToken(mContext),"my").enqueue(object : Callback<BasicResponse>{
+        apiList.getRequestFriendList("my").enqueue(object : Callback<BasicResponse>{
             override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
 
                 if(response.isSuccessful){

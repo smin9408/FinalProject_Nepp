@@ -27,7 +27,6 @@ class AppointmentRecyclerAdapter(
     inner class MyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
 
-
         fun bind(data: AppointmentData) {
 
 

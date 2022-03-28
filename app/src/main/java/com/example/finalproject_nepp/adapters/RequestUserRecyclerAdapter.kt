@@ -101,6 +101,9 @@ class RequestUserRecyclerAdapter(
                 })
 
             }
+
+            btnAccept.setOnClickListener(ocl)
+            btnDeny.setOnClickListener(ocl)
         }
     }
 

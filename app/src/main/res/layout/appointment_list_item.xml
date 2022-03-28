@@ -20,7 +20,7 @@
             android:textSize="17sp" />
 
         <TextView
-            android:id="@+id/txtDate"
+            android:id="@+id/txtDateTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
@@ -34,13 +34,14 @@
         android:layout_weight="1" />
 
     <TextView
-        android:id="@+id/txtPlace"
+        android:id="@+id/txtPlaceName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="장소이름"
         android:textSize="15sp" />
 
     <ImageView
+        android:id="@+id/imgViewMap"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="5dp"

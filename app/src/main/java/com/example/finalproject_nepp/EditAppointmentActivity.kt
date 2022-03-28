@@ -8,9 +8,13 @@ import android.widget.TimePicker
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.finalproject_nepp.databinding.ActivityEditAppointmentBinding
+import com.example.finalproject_nepp.datas.BasicResponse
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.overlay.Marker
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -42,6 +46,26 @@ class EditAppointmentActivity : BaseActivity() {
                 Toast.makeText(mContext, "약속 장소를 선택하지 않았습니다.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
+
+//            약속일시 - yyyy-MM-dd HH:mm 양식을 서버가 지정해서 요청.
+            val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm")
+
+            apiList.postRequestAddAppointment(
+                binding.edtTitle.text.toString(),
+                sdf.format(mSelectedAppointmentDateTime.time),
+                binding.edtPlaceName.text.toString(),
+                mSelectedLatLng!!.latitude,
+                mSelectedLatLng!!.longitude
+            ).enqueue(object :Callback<BasicResponse>{
+                override fun onResponse(
+                    call: Call<BasicResponse>,
+                    response: Response<BasicResponse>
+                ) {
+                }
+
+                override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+                }
+            })
 
         }
 

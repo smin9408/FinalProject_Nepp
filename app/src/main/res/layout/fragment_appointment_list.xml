@@ -17,7 +17,7 @@
             android:layout_gravity="right|bottom"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="10dp"
-            android:text="약속 등록" />
+            android:text="약속 추가" />
 
     </FrameLayout>
 </layout>

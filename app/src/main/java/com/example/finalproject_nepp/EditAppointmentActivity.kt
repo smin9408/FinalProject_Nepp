@@ -9,6 +9,8 @@ import android.widget.TimePicker
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.finalproject_nepp.databinding.ActivityEditAppointmentBinding
+import com.naver.maps.geometry.LatLng
+import com.naver.maps.map.CameraUpdate
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -16,12 +18,12 @@ class EditAppointmentActivity : BaseActivity() {
 
     lateinit var binding: ActivityEditAppointmentBinding
 
-//    약속 시간 일/시 를 저장해줄 Calendar. ( 월 값이 0 ~ 11로 움직이게 맞춰져 있다. )
+    //    약속 시간 일/시 를 저장해줄 Calendar. ( 월 값이 0 ~ 11로 움직이게 맞춰져 있다. )
     val mSelectedAppointmentDateTime = Calendar.getInstance() // 기본 값 : 현재 일시
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_edit_appointment)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_edit_appointment)
         setupEvents()
         setValues()
     }
@@ -31,7 +33,7 @@ class EditAppointmentActivity : BaseActivity() {
 //        날짜 선택 텍스트뷰 클릭 이벤트 - DataPickerDialog
         binding.txtDate.setOnClickListener {
 
-            val dsl = object : DatePickerDialog.OnDateSetListener{
+            val dsl = object : DatePickerDialog.OnDateSetListener {
                 override fun onDateSet(p0: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
 
 //                    연 / 월 / 일은, JAVA / Kotlin 언어의 기준 (0~11) 으로 월 값을 줌.
@@ -64,7 +66,7 @@ class EditAppointmentActivity : BaseActivity() {
 //        시간 선택 텍스트뷰 클릭 이벤트 - TimePickerDialog
         binding.txtTime.setOnClickListener {
 
-            val tsl = object : TimePickerDialog.OnTimeSetListener{
+            val tsl = object : TimePickerDialog.OnTimeSetListener {
                 override fun onTimeSet(p0: TimePicker?, hourOfDay: Int, minute: Int) {
 
 //                    약속 일시의 시간으로 설정.
@@ -89,5 +91,21 @@ class EditAppointmentActivity : BaseActivity() {
     }
 
     override fun setValues() {
+
+//        네이버 지도 객체 얻어오기 => 얻어와지면 할 일 (Interface) 코딩
+        binding.naverMapView.getMapAsync {
+
+//            지도 로딩이 끝나고 난 후에 얻어낸 온전한 지도 객체
+            val naverMap = it
+
+//            지도 시작지점 : 내 집
+            val coord = LatLng(37.40176917670911, 126.92277057992553)
+
+//            coord 에 설정한 좌표로 > 네이버지도의 카메라 이동.
+
+            val cameraUpdate = CameraUpdate.scrollTo(coord)
+            naverMap.moveCamera(cameraUpdate)
+        }
+
     }
 }

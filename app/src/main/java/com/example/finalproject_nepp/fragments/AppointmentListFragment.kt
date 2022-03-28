@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.finalproject_nepp.EditAppointmentActivity
 import com.example.finalproject_nepp.R
+import com.example.finalproject_nepp.adapters.AppointmentRecyclerAdapter
 import com.example.finalproject_nepp.databinding.FragmentAppointmentListBinding
 import com.example.finalproject_nepp.datas.AppointmentData
 import com.example.finalproject_nepp.datas.BasicResponse
@@ -22,12 +24,15 @@ class AppointmentListFragment : BaseFragment() {
 
     val mAppointmentList = ArrayList<AppointmentData>()
 
+    lateinit var mAppointmentAdapter: AppointmentRecyclerAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_appointment_list, container, false)
+        binding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_appointment_list, container, false)
         return binding.root
     }
 
@@ -51,17 +56,23 @@ class AppointmentListFragment : BaseFragment() {
 
     override fun setValues() {
         getMyAppointmentListFromServer()
+
+        mAppointmentAdapter = AppointmentRecyclerAdapter(mContext, mAppointmentList)
+        binding.appointmentRecyclerView.adapter = mAppointmentAdapter
+        binding.appointmentRecyclerView.layoutManager = LinearLayoutManager(mContext)
     }
 
-    fun getMyAppointmentListFromServer(){
+    fun getMyAppointmentListFromServer() {
 
-        apiList.getRequestAppointmentList().enqueue(object :Callback<BasicResponse>{
+        apiList.getRequestAppointmentList().enqueue(object : Callback<BasicResponse> {
             override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
 
-                if(response.isSuccessful){
+                if (response.isSuccessful) {
                     val br = response.body()!!
 
                     mAppointmentList.addAll(br.data.appointments)
+
+                    mAppointmentAdapter.notifyDataSetChanged()
                 }
             }
 

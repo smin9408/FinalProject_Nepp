@@ -2,10 +2,12 @@ package com.example.finalproject_nepp.api
 
 import android.content.Context
 import com.example.finalproject_nepp.utils.ContextUtil
+import com.google.gson.GsonBuilder
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
 
 class ServerAPI {
 
@@ -31,7 +33,7 @@ class ServerAPI {
 //                자동으로 토큰을 첨부.
 //                retrofit 변수를 통해서 API 통신을 시작하기 직전에, 통신 정보를 먼저 가로챈다.
 //                가로챈 통신 정보에서, 무조건 헤더에 토큰을 첨부해두고, 나머지 작업을 이어가도록.
-                val interceptro = Interceptor{
+                val interceptor = Interceptor{
                     with(it){
 //                        기존의 request에, 헤더를 추가해주자.
 
@@ -48,12 +50,21 @@ class ServerAPI {
 //                레트로핏이 사용하는 클라이언트 객체를 수정.
 
                 val myClient = OkHttpClient.Builder()
-                    .addInterceptor(interceptro)
+                    .addInterceptor(interceptor)
                     .build()
+
+//                Date 자료형으로 파싱 => String을 yyyy-MM-dd HH:mm:ss 으로 파싱해서 저장해야함. (고정된 양식으로 내려줌)
+                val gson = GsonBuilder()
+                    .setDateFormat("yyyy-MM-dd HH:mm:ss")
+                    .registerTypeAdapter(
+                        Date::class.java,
+                        DateDeserializer()
+                    ) // 어떤 형태의 자료형에 적용시킬지? Date클래스로 파싱.
+                    .create()
 
                 retrofit = Retrofit.Builder()
                     .baseUrl(BASE_URL) // 어느 서버를 기반으로 움직일건지 설정.
-                    .addConverterFactory( GsonConverterFactory.create() ) // gson 라이브러리와 결합
+                    .addConverterFactory( GsonConverterFactory.create(gson) ) // gson 라이브러리와 결합 + Date 파싱 요령 첨부
                     .client(myClient) // 인터셉터를 부착해둔 클라이언트로 통신하도록.
                     .build()
             }

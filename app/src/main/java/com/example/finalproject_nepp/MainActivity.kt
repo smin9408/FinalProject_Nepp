@@ -2,6 +2,7 @@ package com.example.finalproject_nepp
 
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import com.example.finalproject_nepp.adapters.MainViewPager2Adapter
 import com.example.finalproject_nepp.adapters.MainViewPagerAdapter
 import com.example.finalproject_nepp.databinding.ActivityMainBinding
 import com.example.finalproject_nepp.datas.BasicResponse
@@ -27,7 +28,7 @@ class MainActivity : BaseActivity() {
 
     override fun setValues() {
 
-
+        binding.mainViewPager2.adapter = MainViewPager2Adapter( this ) // 변수 : Activity => 객체 : Context로 대입 불가.
 
 
 

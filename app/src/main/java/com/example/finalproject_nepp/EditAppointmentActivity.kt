@@ -1,9 +1,11 @@
 package com.example.finalproject_nepp
 
 import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.DatePicker
+import android.widget.TimePicker
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.finalproject_nepp.databinding.ActivityEditAppointmentBinding
@@ -26,6 +28,7 @@ class EditAppointmentActivity : BaseActivity() {
 
     override fun setupEvents() {
 
+//        날짜 선택 텍스트뷰 클릭 이벤트 - DataPickerDialog
         binding.txtDate.setOnClickListener {
 
             val dsl = object : DatePickerDialog.OnDateSetListener{
@@ -53,6 +56,29 @@ class EditAppointmentActivity : BaseActivity() {
                 mSelectedAppointmentDateTime.get(Calendar.YEAR),
                 mSelectedAppointmentDateTime.get(Calendar.MONTH),
                 mSelectedAppointmentDateTime.get(Calendar.DAY_OF_MONTH)
+            ).show()
+
+        }
+
+
+//        시간 선택 텍스트뷰 클릭 이벤트 - TimePickerDialog
+        binding.txtTime.setOnClickListener {
+
+            val tsl = object : TimePickerDialog.OnTimeSetListener{
+                override fun onTimeSet(p0: TimePicker?, hourOfDay: Int, minute: Int) {
+
+                    Toast.makeText(mContext, "${hourOfDay}시 ${minute}분 선택", Toast.LENGTH_SHORT).show()
+
+                }
+
+            }
+
+            val tpd = TimePickerDialog(
+                mContext,
+                tsl,
+                18,
+                0,
+                false
             ).show()
 
         }

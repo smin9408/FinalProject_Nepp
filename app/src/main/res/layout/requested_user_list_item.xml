@@ -60,6 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/sky_blue"
+        android:tag="수락"
         android:text="수락" />
 
     <Button
@@ -68,6 +69,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
         android:backgroundTint="@color/red"
+        android:tag="거절"
         android:text="거절" />
 
 

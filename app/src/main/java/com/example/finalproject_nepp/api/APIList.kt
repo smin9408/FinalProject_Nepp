@@ -47,4 +47,11 @@ interface APIList {
     fun postRequestAddFriend(
         @Field("user_id") userId: Int
     ): Call<BasicResponse>
+
+    @FormUrlEncoded
+    @PUT("/user/friend")
+    fun putRequestAcceptOrDenyFriendRequest(
+        @Field("user_id") userId: Int,
+        @Field("type") type: String
+    ): Call<BasicResponse>
 }

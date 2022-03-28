@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/myAppointment"
+        android:icon="@drawable/clock5"
+        android:title="내 약속 목록" />
+
+    <item
+        android:id="@+id/myProfile"
+        android:icon="@drawable/profile"
+        android:title="내 프로필" />
+
+</menu>

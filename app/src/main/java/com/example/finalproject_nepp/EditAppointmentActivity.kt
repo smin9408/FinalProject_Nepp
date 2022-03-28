@@ -12,11 +12,13 @@ import com.example.finalproject_nepp.datas.BasicResponse
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.overlay.Marker
+import com.naver.maps.map.overlay.PathOverlay
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 class EditAppointmentActivity : BaseActivity() {
 
@@ -27,6 +29,8 @@ class EditAppointmentActivity : BaseActivity() {
 
     //    약속 장소 관련 멤버변수
     var marker: Marker? = null // 지도에 표시될 하나의 마커.
+    var path: PathOverlay? = null // 출발지 ~ 도착지까지 보여줄 경로 선. 처음에는 보이지 않는 상태.
+
     var mSelectedLatLng: LatLng? = null // 약속 장소 위/경도 도 처음에는 설정하지 않음
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,40 +49,40 @@ class EditAppointmentActivity : BaseActivity() {
             val inputTitle = binding.edtTitle.text.toString()
 
 //            제목을 입력하지 않았다면 거부.(예시)
-            if(inputTitle.isEmpty()){
+            if (inputTitle.isEmpty()) {
                 Toast.makeText(mContext, "제목을 입력해주세요.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
 //            시간을 선택하지 않았다면 막자.
 //            기준? txtDate, txtTime 두개의 문구 중 하나라도 처음 문구 그대로면 입력 안했다고 간주.
-            if(binding.txtDate.text =="약속 일자"){
+            if (binding.txtDate.text == "약속 일자") {
                 Toast.makeText(mContext, "일자를 선택 해주세요", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            if(binding.txtTime.text =="약속 시간"){
+            if (binding.txtTime.text == "약속 시간") {
                 Toast.makeText(mContext, "시간을 선택 해주세요", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
 //            선택한 일시가 , 지금보다 이전의 일시라면 "현재 이후의 시간으로 선택해주세요."
             val now = Calendar.getInstance() // 저장 버튼을 누른 현재 시간.
-            if(mSelectedAppointmentDateTime.timeInMillis < now.timeInMillis){
+            if (mSelectedAppointmentDateTime.timeInMillis < now.timeInMillis) {
                 Toast.makeText(mContext, "현재 이후의 시간으로 선택해주세요.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
 //            장소 이름도 반드시 입력하게.
             val inputPlaceName = binding.edtPlaceName.text.toString()
-            if(inputPlaceName.isEmpty()){
+            if (inputPlaceName.isEmpty()) {
                 Toast.makeText(mContext, "장소 이름을 입력해주세요.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
 
 //            장소를 선택했는지? 안했다면 등록 거부.
-            if(mSelectedLatLng == null){
+            if (mSelectedLatLng == null) {
                 Toast.makeText(mContext, "약속 장소를 선택하지 않았습니다.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
@@ -92,12 +96,12 @@ class EditAppointmentActivity : BaseActivity() {
                 inputPlaceName,
                 mSelectedLatLng!!.latitude,
                 mSelectedLatLng!!.longitude
-            ).enqueue(object :Callback<BasicResponse>{
+            ).enqueue(object : Callback<BasicResponse> {
                 override fun onResponse(
                     call: Call<BasicResponse>,
                     response: Response<BasicResponse>
                 ) {
-                    if(response.isSuccessful){
+                    if (response.isSuccessful) {
                         Toast.makeText(mContext, "약속을 등록했습니다.", Toast.LENGTH_SHORT).show()
                         finish()
                     }
@@ -197,7 +201,7 @@ class EditAppointmentActivity : BaseActivity() {
             naverMap.setOnMapClickListener { pointF, latLng ->
 
 //                (찍혀있는 마커가 없다면) 마커를 새로 추가
-                if(marker == null){
+                if (marker == null) {
                     marker = Marker()
                 }
 
@@ -207,6 +211,22 @@ class EditAppointmentActivity : BaseActivity() {
 
 //                약속 장소도 새 좌표로 설정.
                 mSelectedLatLng = latLng
+
+//                coord ~ 선택한 latLng 까지 직선을 그려보자. (PathOverlay 기능 활용)
+                if (path == null) {
+                    path = PathOverlay()
+                }
+
+
+//                ArrayList를 만들어서, 출발지와 도착지를 추가.
+                val coordList = ArrayList<LatLng>()
+
+                coordList.add(coord)
+                coordList.add(latLng) // 클릭된 좌표 추가
+
+                path!!.coords = coordList
+
+                path!!.map = naverMap
 
             }
         }

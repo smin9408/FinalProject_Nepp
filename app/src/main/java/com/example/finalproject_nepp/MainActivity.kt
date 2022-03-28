@@ -2,6 +2,7 @@ package com.example.finalproject_nepp
 
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import androidx.viewpager2.widget.ViewPager2
 import com.example.finalproject_nepp.adapters.MainViewPager2Adapter
 import com.example.finalproject_nepp.adapters.MainViewPagerAdapter
 import com.example.finalproject_nepp.databinding.ActivityMainBinding
@@ -40,6 +41,20 @@ class MainActivity : BaseActivity() {
         }
 
 //        뷰폐이저의 페이지 이동 > 바텀 네비게이션의 메뉴 선택
+        binding.mainViewPager2.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
+
+//            추상 메쏘드 X. 이벤트처리 함수를 직접 오버라이딩
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+
+                binding.mainBottomNav.selectedItemId = when(position){
+                    0 -> R.id.myAppointment
+                    else -> R.id.myProfile
+                }
+
+            }
+
+        })
 
     }
 

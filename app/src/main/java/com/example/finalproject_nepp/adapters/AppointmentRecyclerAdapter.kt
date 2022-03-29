@@ -1,6 +1,7 @@
 package com.example.finalproject_nepp.adapters
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.finalproject_nepp.R
+import com.example.finalproject_nepp.ViewMapActivity
 import com.example.finalproject_nepp.api.APIList
 import com.example.finalproject_nepp.api.ServerAPI
 import com.example.finalproject_nepp.datas.AppointmentData
@@ -43,6 +45,12 @@ class AppointmentRecyclerAdapter(
 //            출력하고 싶은 datetime (String - 22년 3월 29일 오후 2시 30분 양식) - format 활용
             val sdf = SimpleDateFormat("yy년 M월 d일 a h시 m분")
             txtDateTime.text = sdf.format(data.datetime)
+
+            imgViewMap.setOnClickListener {
+
+                val myIntent = Intent(mContext, ViewMapActivity::class.java)
+                mContext.startActivity(myIntent)
+            }
 
         }
     }

@@ -1,5 +1,6 @@
 package com.example.finalproject_nepp.datas
 
+import java.io.Serializable
 import java.util.*
 
 class AppointmentData(
@@ -16,5 +17,5 @@ class AppointmentData(
     val created_at: String,
     val user: UserData,
     val invited_friends: List<UserData>
-) {
+) : Serializable {
 }

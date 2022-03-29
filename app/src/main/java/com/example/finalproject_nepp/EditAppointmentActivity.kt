@@ -13,6 +13,10 @@ import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.PathOverlay
+import com.odsay.odsayandroidsdk.API
+import com.odsay.odsayandroidsdk.ODsayData
+import com.odsay.odsayandroidsdk.ODsayService
+import com.odsay.odsayandroidsdk.OnResultCallbackListener
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -212,7 +216,35 @@ class EditAppointmentActivity : BaseActivity() {
 //                약속 장소도 새 좌표로 설정.
                 mSelectedLatLng = latLng
 
-//                coord ~ 선택한 latLng 까지 직선을 그려보자. (PathOverlay 기능 활용)
+//                coord ~ 선택한 latLng 까지 직선을 그려보자. (PathOverlay 기능 활용) + ODsay 라이브러리 활용
+
+                val myODsayService = ODsayService.init(mContext,"Nk0imGVQqJfTmLYgdWfR8iep+hE0Ft6KcIi3x9v1SPY")
+                myODsayService.requestSearchPubTransPath(
+                    coord.longitude.toString(),
+                    coord.latitude.toString(),
+                    latLng.longitude.toString(),
+                    latLng.latitude.toString(),
+                    null,
+                    null,
+                    null,
+                    object : OnResultCallbackListener {
+                        override fun onSuccess(p0: ODsayData?, p1: API?) {
+
+                            val jsonObj = p0!!.json!!
+
+                            val resultObj = jsonObj.getJSONObject("result")
+
+                            val pathArr = resultObj.getJSONArray("path") // 여러 추천 경로 중 첫번째 만 사용해보자.
+
+                            val firstPathObj = pathArr.getJSONObject(0) // 0번째 경로 추출.
+                        }
+
+                        override fun onError(p0: Int, p1: String?, p2: API?) {
+                        }
+
+                    }
+                )
+
                 if (path == null) {
                     path = PathOverlay()
                 }

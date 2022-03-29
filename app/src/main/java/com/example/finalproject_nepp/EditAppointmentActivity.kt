@@ -311,6 +311,11 @@ class EditAppointmentActivity : BaseActivity() {
                                 return@setOnClickListener true
                             }
 
+//                            키메라를 latlng (클릭한 위치) 가운데로 오도록
+                            val cameraUpdate = CameraUpdate.scrollTo(latLng)
+                            naverMap.moveCamera(cameraUpdate)
+
+
                         }
 
                         override fun onError(p0: Int, p1: String?, p2: API?) {

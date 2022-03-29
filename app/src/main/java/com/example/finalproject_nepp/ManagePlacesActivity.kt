@@ -1,5 +1,6 @@
 package com.example.finalproject_nepp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -33,6 +34,8 @@ class ManagePlacesActivity : BaseActivity() {
         btnAdd.setOnClickListener {
 
 //            장소 추가 화면 이동.
+            val myIntent = Intent(mContext, EditMyPlaceActivity::class.java)
+            startActivity(myIntent)
 
         }
     }

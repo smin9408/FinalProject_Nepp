@@ -99,12 +99,19 @@ class EditAppointmentActivity : BaseActivity() {
                 return@setOnClickListener
             }
 
+//            지금 선택되어 있는 아이템이 몇번째 아이템인지
+            val selectedStartPlace = mStartPlaceList[binding.startPlaceSpinner.selectedItemPosition]
+
+
 //            약속일시 - yyyy-MM-dd HH:mm 양식을 서버가 지정해서 요청.
             val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm")
 
             apiList.postRequestAddAppointment(
                 inputTitle,
                 sdf.format(mSelectedAppointmentDateTime.time),
+                selectedStartPlace.name,
+                selectedStartPlace.latitude,
+                selectedStartPlace.longitude,
                 inputPlaceName,
                 mSelectedLatLng!!.latitude,
                 mSelectedLatLng!!.longitude

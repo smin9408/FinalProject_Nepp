@@ -1,15 +1,19 @@
 package com.example.finalproject_nepp
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Base64
+import android.util.Log
 import com.example.finalproject_nepp.datas.BasicResponse
 import com.example.finalproject_nepp.utils.ContextUtil
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.security.MessageDigest
 
 class SplashActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,5 +64,19 @@ class SplashActivity : BaseActivity() {
 
         }, 2500)
 
+        getKeyHash()
+
+    }
+
+    fun getKeyHash(){
+        val info = packageManager.getPackageInfo(
+            "com.example.finalproject_nepp",
+            PackageManager.GET_SIGNATURES
+        )
+        for (signature in info.signatures) {
+            val md: MessageDigest = MessageDigest.getInstance("SHA")
+            md.update(signature.toByteArray())
+            Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT))
+        }
     }
 }

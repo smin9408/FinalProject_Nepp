@@ -6,6 +6,7 @@ buildscript {
         maven {
             url 'https://naver.jfrog.io/artifactory/maven/'
         }
+        maven { url 'https://devrepo.kakao.com/nexus/content/groups/public/'}
     }
     dependencies {
         classpath "com.android.tools.build:gradle:7.0.3"

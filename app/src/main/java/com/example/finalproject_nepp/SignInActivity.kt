@@ -2,11 +2,13 @@ package com.example.finalproject_nepp
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.finalproject_nepp.databinding.ActivitySignInBinding
 import com.example.finalproject_nepp.datas.BasicResponse
 import com.example.finalproject_nepp.utils.ContextUtil
+import com.kakao.sdk.user.UserApiClient
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -23,6 +25,28 @@ class SignInActivity : BaseActivity() {
     }
 
     override fun setupEvents() {
+
+        binding.btnKakaoLogin.setOnClickListener {
+
+//            카톡 로그인 기능 실행
+
+//            카톡 앱 로그인이 가능한지?
+            if(UserApiClient.instance.isKakaoTalkLoginAvailable(mContext)){
+
+//                카톡 앱이 설치되어있는 상황
+                UserApiClient.instance.loginWithKakaoTalk(mContext) {token, error ->
+
+                    Log.d("카카오 로그인", "카톡 앱으로 로그인")
+                }
+            }
+            else{
+//                카톡 앱이 없는 상황. 로그인 창 띄워주기
+                UserApiClient.instance.loginWithKakaoAccount(mContext){token, error ->
+
+                    Log.d("카카오 로그인", "카톡 앱 없이 로그인")
+                }
+            }
+        }
 
         binding.btnSignUp.setOnClickListener {
 

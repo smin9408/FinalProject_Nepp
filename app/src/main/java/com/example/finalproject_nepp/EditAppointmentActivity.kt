@@ -7,8 +7,10 @@ import android.widget.DatePicker
 import android.widget.TimePicker
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import com.example.finalproject_nepp.adapters.StartPlaceSpinnerAdapter
 import com.example.finalproject_nepp.databinding.ActivityEditAppointmentBinding
 import com.example.finalproject_nepp.datas.BasicResponse
+import com.example.finalproject_nepp.datas.PlaceData
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.overlay.InfoWindow
@@ -37,6 +39,11 @@ class EditAppointmentActivity : BaseActivity() {
     var path: PathOverlay? = null // 출발지 ~ 도착지까지 보여줄 경로 선. 처음에는 보이지 않는 상태.
 
     var mSelectedLatLng: LatLng? = null // 약속 장소 위/경도 도 처음에는 설정하지 않음
+
+
+//    내 출발 장소 목록
+    val mStartPlaceList = ArrayList<PlaceData>()
+    lateinit var mStartPlaceAdapter: StartPlaceSpinnerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -341,6 +348,38 @@ class EditAppointmentActivity : BaseActivity() {
 
             }
         }
+
+
+//        내 출발장소 목록 불러오기
+        getMyStartPlaceListFromServer()
+
+//        스피너 어댑터 연결 -> 리스트뷰와 동일함.
+        mStartPlaceAdapter = StartPlaceSpinnerAdapter(mContext, R.layout.start_place_spinner_list_item, mStartPlaceList)
+        binding.startPlaceSpinner.adapter = mStartPlaceAdapter
+
+    }
+
+    fun getMyStartPlaceListFromServer(){
+
+        apiList.getRequestMyPlaceList().enqueue(object :Callback<BasicResponse>{
+            override fun onResponse(call: Call<BasicResponse>, response: Response<BasicResponse>) {
+
+                if(response.isSuccessful){
+
+                    val br = response.body()!!
+
+                    mStartPlaceList.clear()
+
+                    mStartPlaceList.addAll(br.data.places)
+
+                    mStartPlaceAdapter.notifyDataSetChanged()
+
+                }
+            }
+
+            override fun onFailure(call: Call<BasicResponse>, t: Throwable) {
+            }
+        })
 
     }
 }

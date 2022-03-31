@@ -335,7 +335,6 @@ class EditAppointmentActivity : BaseActivity() {
 
 //        출발지 / 도착지 모두 불러와져야 길찾기 진행
         if(mSelectedStartPlace == null || mSelectedLatLng == null){
-            return // 좌표가 하나라도 없으면 강제 종료
         }
 
         val myODsayService =
